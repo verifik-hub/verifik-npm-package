@@ -1,0 +1,19 @@
+{
+  "name": "verifik",
+  "version": "1.0.2",
+  "description": "This library is a wrap of the official API found in docs.verifik.co",
+  "main": "index.js",
+  "dependencies": {
+    "async": "3.2.4",
+    "axios": "1.2.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "verifik",
+    "data-verification"
+  ],
+  "author": "jumitrmo",
+  "license": "MIT"
+}
