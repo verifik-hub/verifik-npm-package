@@ -15,4 +15,88 @@
     </a>
   </div>
   
+   <img src="https://komarev.com/ghpvc/?username=verifik-hub&style=flat-square&color=blue" alt=""/>
+  
 </div>
+
+<div align="center">
+  <img src="https://cdn.verifik.co/readme/imagen-hero1-p-800.png" width="600" height="450"/>
+</div>
+
+---
+
+### :man_technologist: About Verifik :
+
+We are a data validation & biometrics company <img src="https://media.giphy.com/media/WUlplcMpOCEmTGBtBW/giphy.gif" width="30"> from Latino America with offices in Bogota, Colombia.
+
+
+- :telescope: Stop fraud with ID & Data Verification. One API to authenticate, validate and verify any type of data.
+
+- :thinking: Unleash the full power of Verifik. Everything you need to verify, authenticate and retain better users.
+
+- :zap: Onboarding aaS. Seamlessly onboard your clients with biometrics.
+
+- :lock: Authentication aaS. Enable password-less logins for your clients.
+
+- :white_check_mark: Compliance aaS. One API source for local and international KYC & AML.
+
+- :disguised_face: 3D Liveness check & face matching.  
+ ● User Friendly
+ ● Easy integration
+ ● Secure passwordless solutions for your customers
+ ● 3D liveness detection & anti-spoofing technology
+ 
+ - :id: ID Document verification.  
+  ● OCR data extraction & template– Over 700+ supported documents from over 150+ countries
+  ● Latin, Arabic, Cyrillic, Hebrew, Thai, Japanese Character Language
+
+ - :heavy_check_mark: KYC & AML.   
+   ● One API to verify all types of identifiers (IDs, License Plate Number, VIN, etc)
+   ● Over 40 APIs from USA, Mexico, Colombia, Peru, Ecuador, Venezuela, International.
+   
+   
+ ### Built for developers by developers
+
+
+```javascript
+var axios = require("axios").default;
+
+var options = {
+  method: 'GET',
+  url: 'https://api.verifik.co/v2/co/cedula',
+  headers: {'Content-Type': 'application/json', Authorization: 'situacion-militar'}
+};
+
+axios.request(options).then(function (response) {
+  console.log(response.data);
+}).catch(function (error) {
+  console.error(error);
+});
+```
+
+```json
+{
+  "data": {
+    "documentType": "CC",
+    "documentNumber": "1234567890",
+    "fullName": "MATEO VERIFIK",
+    "firstName": "MATEO",
+    "lastName": "VERIFIK",
+    "arrayName": [
+      "MATEO",
+      "",
+      "VERIFIK",
+      ""
+    ],
+    "expeditionDate": "This information has been classified as semi-private and is temporarily unavailable for delivery. - RNEC 2686",
+    "expeditionPlace": "This information has been classified as semi-private and is temporarily unavailable for delivery. - RNEC 2686",
+    "dateOfBirth": "This information has been classified as semi-private and is temporarily unavailable for delivery. - RNEC 2686"
+  },
+  "signature": {
+    "dateTime": "July 19, 2022 9:37 AM",
+    "message": "Certified by Verifik.co"
+  }
+}
+```
+
+
