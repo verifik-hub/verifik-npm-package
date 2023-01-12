@@ -1,141 +1,194 @@
-const {
-    documentNumber
-} = require('../../server/Core/JoiUtils');
 const core = require('./core');
 
 const axios = core.getAxiosInstance();
 
-const getID = async (documentType, documentNumber) => {
-    if (!documentType || !documentNumber) {
-        throw new Error('Missing required fields: documentType | documentNumber');
+const features = require('./colombia_features_list');
+
+const requestEndpoint = async (endpoint, params) => {
+    const feature = features.mapping[endpoint];
+
+    for (const dependency of feature.dependencies) {
+        if (dependency.required && !params[dependency.field]) {
+            throw new Error(`Missing required field: ${dependency.field}`);
+        }
+
+        if (dependency.enum && !dependency.enum.includes(params[dependency.field])) {
+            throw new Error(`Invalid value for field ${dependency.field}: ${params[dependency.field]}`);
+        }
     }
 
-    const response = await axios.get(`/v2/co/cedula?documentType=${documentType}&documentNumber=${documentNumber}`);
+    let queryString = `/${feature.url}?`;
+
+    for (const param in params) {
+        queryString += `${param}=${params[param]}&`;
+    }
+
+    const response = await axios.get(queryString);
 
     return response.data;
 };
 
-const getFullID = async (documentType, documentNumber, date) => {
-    if (!documentType || !documentNumber || !date) {
-        throw new Error('Missing required fields: documentType | documentNumber | date');
-    }
+const getAffiliations = (documentType, documentNumber) => requestEndpoint('afiliaciones', {
+    documentType,
+    documentNumber
+});
 
-    const response = await axios.get(`/v2/co/cedula/extra?documentType=${documentType}&documentNumber=${documentNumber}`);
+const getAlturaCourses = (documentType, documentNumber) => requestEndpoint('ministerio-de-trabajo/certificados', {
+    documentType,
+    documentNumber
+});
 
-    return response.data;
-}
+const getCompany = (documentType, documentNumber) => requestEndpoint('company/dian', {
+    documentType,
+    documentNumber,
+});
 
-const getMilitarySituation = async (documentType, documentNumber) => {
-    if (!documentType || !documentNumber) {
-        throw new Error('Missing required fields: documentType | documentNumber');
-    }
+const getDriver = (documentType, documentNumber) => requestEndpoint('runt/conductor', {
+    documentType,
+    documentNumber,
+})
 
-    const response = await axios.get(`/v2/co/situacion-militar?documentType=${documentType}&documentNumber=${documentNumber}`);
+const getID = (documentType, documentNumber) => requestEndpoint('cedula', {
+    documentType,
+    documentNumber
+});
 
-    return response.data;
-}
+const getFullID = (documentType, documentNumber, date) => requestEndpoint('cedula/extra', {
+    documentType,
+    documentNumber,
+    date
+});
 
-const getAffiliations = async (documentType, documentNumber) => {
-    if (!documentType || !documentNumber) {
-        throw new Error('Missing required fields: documentType | documentNumber');
-    }
+const getMilitarySituation = (documentType, documentNumber) => requestEndpoint('situacion-militar', {
+    documentType,
+    documentNumber
+});
 
-    const response = await axios.get(`/v2/co/afiliaciones?documentType=${documentType}&documentNumber=${documentNumber}`);
+const getSENACertificates = (documentType, documentNumber) => requestEndpoint('sena/certificados', {
+    documentType,
+    documentNumber
+});
 
-    return response.data;
-}
+const getPoliceCriminalHistory = (documentType, documentNumber) => requestEndpoint('policia/consultar', {
+    documentType,
+    documentNumber
+});
 
-const getSENACertificates = async (documentType, documentNumber) => {
-    if (!documentType || !documentNumber) {
-        throw new Error('Missing required fields: documentType | documentNumber');
-    }
+const getProcuraduriaCriminalHistory = (documentType, documentNumber) => requestEndpoint('procuraduria/antecedentes', {
+    documentType,
+    documentNumber
+});
 
-    const response = await axios.get(`/v2/co/sena/certificados?documentType=${documentType}&documentNumber=${documentNumber}`);
+const getContraloriaCertificates = (documentType, documentNumber) => requestEndpoint('contraloria/certificado', {
+    documentType,
+    documentNumber
+});
 
-    return response.data;
-}
+const getRegistraduriaCertificate = (documentType, documentNumber, date) => requestEndpoint('registraduria/certificado', {
+    documentType,
+    documentNumber,
+    date
+});
 
-const getPoliceCriminalHistory = async (documentType, documentNumber) => {
-    if (!documentType || !documentNumber) {
-        throw new Error('Missing required fields: documentType | documentNumber');
-    }
+const getPollingPlace = (documentType, documentNumber) => requestEndpoint('lugar-de-votacion', {
+    documentType,
+    documentNumber
+});
 
-    const response = await axios.get(`/v2/co/policia/consultar?documentType=${documentType}&documentNumber=${documentNumber}`);
+const getDelinquentDebtor = (documentType, documentNumber) => requestEndpoint('deudoresmorosos', {
+    documentType,
+    documentNumber
+});
 
-    return response.data;
-}
+const getRETHUS = (documentType, documentNumber) => requestEndpoint('cedula/rethus', {
+    documentType,
+    documentNumber
+});
 
-const getAlturaCourses = async (documentType, documentNumber) => {
-    if (!documentType || !documentNumber) {
-        throw new Error('Missing required fields: documentType | documentNumber');
-    }
+const getVehicle = (documentType, documentNumber, plate) => requestEndpoint('runt/vehiculo', {
+    documentType,
+    documentNumber,
+    plate,
+})
 
-    const response = await axios.get(`/v2/co/ministerio-de-trabajo/certificados?documentType=${documentType}&documentNumber=${documentNumber}`);
+const getVehicleOwner = (plate) => requestEndpoint('runt/propietarios', {
+    plate,
+});
 
-    return response.data;
-}
+const getVehicleDetails = (plate) => requestEndpoint('runt/vehiculo-completo', {
+    plate,
+});
 
-const getContraloriaCertificates = async (documentType, documentNumber) => {
-    if (!documentType || !documentNumber) {
-        throw new Error('Missing required fields: documentType | documentNumber');
-    }
+const getRUES = (documentType, documentNumber) => requestEndpoint('rues', {
+    documentType,
+    documentNumber,
+});
 
-    const response = await axios.get(`/v2/co/contraloria/certificado?documentType=${documentType}&documentNumber=${documentNumber}`);
+const getRAMAProcesses = (documentType, documentNumber) => requestEndpoint('rama/procesos', {
+    documentType,
+    documentNumber,
+});
 
-    return response.data;
-}
+const getRAMAProcessDetails = (processNumber) => requestEndpoint('rama/proceso', {
+    processNumber,
+});
 
-const getRegistraduriaCertificate = async (documentType, documentNumber, date) => {
-    if (!documentType || !documentNumber || !date) {
-        throw new Error('Missing required fields: documentType | documentNumber | date');
-    }
+const getPeakAndPlate = (plate) => requestEndpoint('vehiculo/pico-y-placa', {
+    plate,
+});
 
-    const response = await axios.get(`/v2/co/registraduria/certificado?documentType=${documentType}&documentNumber=${documentNumber}`);
+const getSIMIT = (documentType, documentNumber) => requestEndpoint('simit/consultar', {
+    documentType,
+    documentNumber,
+});
 
-    return response.data;
-}
+const getSIMITSuspensions = (documentType, documentNumber) => requestEndpoint('simit/suspensiones', {
+    documentType,
+    documentNumber,
+});
 
-const getPollingPlace = async (documentType, documentNumber) => {
-    if (!documentType || !documentNumber) {
-        throw new Error('Missing required fields: documentType | documentNumber');
-    }
+const getSIMITAgreements = (documentType, documentNumber) => requestEndpoint('simit/acuerdos', {
+    documentType,
+    documentNumber,
+});
 
-    const response = await axios.get(`/v2/co/registraduria/votacion?documentType=${documentType}&documentNumber=${documentNumber}`);
+const getSIMITResolutions = (documentType, documentNumber) => requestEndpoint('simit/resoluciones', {
+    documentType,
+    documentNumber,
+});
 
-    return response.data;
-}
-
-const getDelinquentDebtor = async (documentType, documentNumber) => {
-    if (!documentType || !documentNumber) {
-        throw new Error('Missing required fields: documentType | documentNumber');
-    }
-
-    const response = await axios.get(`/v2/co/deudoresmorosos?documentType=${documentType}&documentNumber=${documentNumber}`);
-
-    return response.data;
-}
-
-const getRETHUS = async (documentType, documentNumber) => {
-    if (!documentType || !documentNumber) {
-        throw new Error('Missing required fields: documentType | documentNumber');
-    }
-
-    const response = await axios.get(`/v2/co/cedula/rethus?documentType=${documentType}&documentNumber=${documentNumber}`);
-
-    return response.data;
-}
+const getSIMITSubpoenas = (documentType, documentNumber) => requestEndpoint('simit/comparendos', {
+    documentType,
+    documentNumber,
+});
 
 module.exports = {
     getAffiliations,
     getAlturaCourses,
+    getContraloriaCertificates,
+    getCompany,
+    getDelinquentDebtor,
+    getDriver,
     getFullID,
     getID,
     getMilitarySituation,
+    getSIMIT,
+    getSIMITSuspensions,
+    getSIMITAgreements,
+    getSIMITResolutions,
+    getSIMITSubpoenas,
     getSENACertificates,
     getPoliceCriminalHistory,
-    getContraloriaCertificates,
+    getProcuraduriaCriminalHistory,
     getRegistraduriaCertificate,
+    getPeakAndPlate,
     getPollingPlace,
-    getDelinquentDebtor,
+    getVehicle,
+    getVehicleOwner,
+    getVehicleDetails,
+    getRAMAProcesses,
+    getRAMAProcessDetails,
     getRETHUS,
+    getRUES,
+    requestEndpoint,
 }
