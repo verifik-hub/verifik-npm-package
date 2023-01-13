@@ -24,5 +24,4 @@ module.exports = {
     getBusiness,
     getID,
     getVehicle,
-    requestEndpoint,
 };

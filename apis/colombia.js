@@ -165,5 +165,4 @@ module.exports = {
     getRAMAProcessDetails,
     getRETHUS,
     getRUES,
-    requestEndpoint,
 }

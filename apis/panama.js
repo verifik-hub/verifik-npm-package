@@ -37,5 +37,4 @@ module.exports = {
     getID,
     getFullID,
     getVehicle,
-    requestEndpoint,
 };

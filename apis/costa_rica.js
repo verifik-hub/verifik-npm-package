@@ -2,7 +2,7 @@ const {
     requestEndpoint
 } = require('./core');
 
-const getID = (documentType, documentNumber) => requestEndpoint('ve/cedula', {
+const getID = (documentType, documentNumber) => requestEndpoint('cr/cedula', {
     documentType,
     documentNumber
 });
