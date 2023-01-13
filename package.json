@@ -1,6 +1,6 @@
 {
   "name": "verifik",
-  "version": "1.0.6",
+  "version": "1.0.8",
   "description": "This library is a wrap of the official API found in docs.verifik.co",
   "main": "index.js",
   "repository": {
@@ -16,7 +16,22 @@
   },
   "keywords": [
     "verifik",
-    "data-verification"
+    "data-verification",
+    "data",
+    "kyc",
+    "passwordless",
+    "biometrics",
+    "identification",
+    "name-validation",
+    "name-extraction",
+    "identity",
+    "identity-validation",
+    "national-identity",
+    "colombia id",
+    "panama id",
+    "venezuela id",
+    "peru id",
+    "chile id"
   ],
   "author": "jumitrmo",
   "license": "MIT"

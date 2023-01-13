@@ -4,6 +4,23 @@ let _axios = null;
 
 let privateKey = null;
 
+const colombia = require('./colombia_features_list');
+const chile = require('./chile_features_list');
+const panama = require('./panama_features_list');
+const peru = require('./peru_features_list');
+const venezuela = require('./venezuela_features_list');
+
+const features = {
+    list: [],
+    mapping: {
+        ...chile.mapping,
+        ...colombia.mapping,
+        ...panama.mapping,
+        ...peru.mapping,
+        ...venezuela.mapping,
+    },
+}
+
 const setKey = (key) => {
     privateKey = key;
 }
@@ -24,9 +41,42 @@ const getAxiosInstance = () => {
     return _axios;
 }
 
+/**
+ * request Endpoint
+ * @param {String} endpoint
+ * @param {Object} params
+ * @returns mixed
+ */
+const requestEndpoint = async (endpoint, params) => {
+    const _axios = getAxiosInstance();
+    
+    const feature = features.mapping[endpoint];
+
+    for (const dependency of feature.dependencies) {
+        if (dependency.required && !params[dependency.field]) {
+            throw new Error(`Missing required field: ${dependency.field}`);
+        }
+
+        if (dependency.enum && !dependency.enum.includes(params[dependency.field])) {
+            throw new Error(`Invalid value for field ${dependency.field}: ${params[dependency.field]}`);
+        }
+    }
+
+    let queryString = `/${feature.url}?`;
+
+    for (const param in params) {
+        queryString += `${param}=${params[param]}&`;
+    }
+
+    const response = await _axios.get(queryString);
+
+    return response.data;
+};
+
 module.exports = {
     url: 'https://api.verifik.co',
     setKey,
     getKey,
     getAxiosInstance,
+    requestEndpoint,
 };

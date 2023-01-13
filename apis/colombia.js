@@ -1,163 +1,138 @@
-const core = require('./core');
+const {
+    requestEndpoint,
+} = require('./core');
 
-const axios = core.getAxiosInstance();
 
-const features = require('./colombia_features_list');
-
-const requestEndpoint = async (endpoint, params) => {
-    const feature = features.mapping[endpoint];
-
-    for (const dependency of feature.dependencies) {
-        if (dependency.required && !params[dependency.field]) {
-            throw new Error(`Missing required field: ${dependency.field}`);
-        }
-
-        if (dependency.enum && !dependency.enum.includes(params[dependency.field])) {
-            throw new Error(`Invalid value for field ${dependency.field}: ${params[dependency.field]}`);
-        }
-    }
-
-    let queryString = `/${feature.url}?`;
-
-    for (const param in params) {
-        queryString += `${param}=${params[param]}&`;
-    }
-
-    const response = await axios.get(queryString);
-
-    return response.data;
-};
-
-const getAffiliations = (documentType, documentNumber) => requestEndpoint('afiliaciones', {
+const getAffiliations = (documentType, documentNumber) => requestEndpoint('co/afiliaciones', {
     documentType,
     documentNumber
 });
 
-const getAlturaCourses = (documentType, documentNumber) => requestEndpoint('ministerio-de-trabajo/certificados', {
+const getAlturaCourses = (documentType, documentNumber) => requestEndpoint('co/ministerio-de-trabajo/certificados', {
     documentType,
     documentNumber
 });
 
-const getCompany = (documentType, documentNumber) => requestEndpoint('company/dian', {
+const getCompany = (documentType, documentNumber) => requestEndpoint('co/company/dian', {
     documentType,
     documentNumber,
 });
 
-const getDriver = (documentType, documentNumber) => requestEndpoint('runt/conductor', {
+const getDriver = (documentType, documentNumber) => requestEndpoint('co/runt/conductor', {
     documentType,
     documentNumber,
 })
 
-const getID = (documentType, documentNumber) => requestEndpoint('cedula', {
+const getID = (documentType, documentNumber) => requestEndpoint('co/cedula', {
     documentType,
     documentNumber
 });
 
-const getFullID = (documentType, documentNumber, date) => requestEndpoint('cedula/extra', {
+const getFullID = (documentType, documentNumber, date) => requestEndpoint('co/cedula/extra', {
     documentType,
     documentNumber,
     date
 });
 
-const getMilitarySituation = (documentType, documentNumber) => requestEndpoint('situacion-militar', {
+const getMilitarySituation = (documentType, documentNumber) => requestEndpoint('co/situacion-militar', {
     documentType,
     documentNumber
 });
 
-const getSENACertificates = (documentType, documentNumber) => requestEndpoint('sena/certificados', {
+const getSENACertificates = (documentType, documentNumber) => requestEndpoint('co/sena/certificados', {
     documentType,
     documentNumber
 });
 
-const getPoliceCriminalHistory = (documentType, documentNumber) => requestEndpoint('policia/consultar', {
+const getPoliceCriminalHistory = (documentType, documentNumber) => requestEndpoint('co/policia/consultar', {
     documentType,
     documentNumber
 });
 
-const getProcuraduriaCriminalHistory = (documentType, documentNumber) => requestEndpoint('procuraduria/antecedentes', {
+const getProcuraduriaCriminalHistory = (documentType, documentNumber) => requestEndpoint('co/procuraduria/antecedentes', {
     documentType,
     documentNumber
 });
 
-const getContraloriaCertificates = (documentType, documentNumber) => requestEndpoint('contraloria/certificado', {
+const getContraloriaCertificates = (documentType, documentNumber) => requestEndpoint('co/contraloria/certificado', {
     documentType,
     documentNumber
 });
 
-const getRegistraduriaCertificate = (documentType, documentNumber, date) => requestEndpoint('registraduria/certificado', {
+const getRegistraduriaCertificate = (documentType, documentNumber, date) => requestEndpoint('co/registraduria/certificado', {
     documentType,
     documentNumber,
     date
 });
 
-const getPollingPlace = (documentType, documentNumber) => requestEndpoint('lugar-de-votacion', {
+const getPollingPlace = (documentType, documentNumber) => requestEndpoint('co/lugar-de-votacion', {
     documentType,
     documentNumber
 });
 
-const getDelinquentDebtor = (documentType, documentNumber) => requestEndpoint('deudoresmorosos', {
+const getDelinquentDebtor = (documentType, documentNumber) => requestEndpoint('co/deudoresmorosos', {
     documentType,
     documentNumber
 });
 
-const getRETHUS = (documentType, documentNumber) => requestEndpoint('cedula/rethus', {
+const getRETHUS = (documentType, documentNumber) => requestEndpoint('co/cedula/rethus', {
     documentType,
     documentNumber
 });
 
-const getVehicle = (documentType, documentNumber, plate) => requestEndpoint('runt/vehiculo', {
+const getVehicle = (documentType, documentNumber, plate) => requestEndpoint('co/runt/vehiculo', {
     documentType,
     documentNumber,
     plate,
 })
 
-const getVehicleOwner = (plate) => requestEndpoint('runt/propietarios', {
+const getVehicleOwner = (plate) => requestEndpoint('co/runt/propietarios', {
     plate,
 });
 
-const getVehicleDetails = (plate) => requestEndpoint('runt/vehiculo-completo', {
+const getVehicleDetails = (plate) => requestEndpoint('co/runt/vehiculo-completo', {
     plate,
 });
 
-const getRUES = (documentType, documentNumber) => requestEndpoint('rues', {
+const getRUES = (documentType, documentNumber) => requestEndpoint('co/rues', {
     documentType,
     documentNumber,
 });
 
-const getRAMAProcesses = (documentType, documentNumber) => requestEndpoint('rama/procesos', {
+const getRAMAProcesses = (documentType, documentNumber) => requestEndpoint('co/rama/procesos', {
     documentType,
     documentNumber,
 });
 
-const getRAMAProcessDetails = (processNumber) => requestEndpoint('rama/proceso', {
+const getRAMAProcessDetails = (processNumber) => requestEndpoint('co/rama/proceso', {
     processNumber,
 });
 
-const getPeakAndPlate = (plate) => requestEndpoint('vehiculo/pico-y-placa', {
+const getPeakAndPlate = (plate) => requestEndpoint('co/vehiculo/pico-y-placa', {
     plate,
 });
 
-const getSIMIT = (documentType, documentNumber) => requestEndpoint('simit/consultar', {
+const getSIMIT = (documentType, documentNumber) => requestEndpoint('co/simit/consultar', {
     documentType,
     documentNumber,
 });
 
-const getSIMITSuspensions = (documentType, documentNumber) => requestEndpoint('simit/suspensiones', {
+const getSIMITSuspensions = (documentType, documentNumber) => requestEndpoint('co/simit/suspensiones', {
     documentType,
     documentNumber,
 });
 
-const getSIMITAgreements = (documentType, documentNumber) => requestEndpoint('simit/acuerdos', {
+const getSIMITAgreements = (documentType, documentNumber) => requestEndpoint('co/simit/acuerdos', {
     documentType,
     documentNumber,
 });
 
-const getSIMITResolutions = (documentType, documentNumber) => requestEndpoint('simit/resoluciones', {
+const getSIMITResolutions = (documentType, documentNumber) => requestEndpoint('co/simit/resoluciones', {
     documentType,
     documentNumber,
 });
 
-const getSIMITSubpoenas = (documentType, documentNumber) => requestEndpoint('simit/comparendos', {
+const getSIMITSubpoenas = (documentType, documentNumber) => requestEndpoint('co/simit/comparendos', {
     documentType,
     documentNumber,
 });

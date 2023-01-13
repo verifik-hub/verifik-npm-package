@@ -936,7 +936,7 @@ const mapping = {};
 for (let index = 0; index < list.length; index++) {
     const feature = list[index];
     
-    const url = feature.url.split('v2/co/')[1];
+    const url = feature.url.split('v2/')[1];
     
     mapping[url] = feature;
 }
