@@ -1,6 +1,6 @@
 {
   "name": "verifik",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "This library is a wrap of the official API found in docs.verifik.co",
   "main": "index.js",
   "repository": {
