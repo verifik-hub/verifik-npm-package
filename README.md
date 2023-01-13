@@ -20,7 +20,7 @@
 </div>
 
 <div align="center">
-  <img src="https://cdn.verifik.co/readme/imagen-hero1-p-800.png" width="600" height="450"/>
+  <img src="https://cdn.verifik.co/readme/imagen-hero1-p-800.png" width="500" height="380"/>
 </div>
 
 ---
@@ -55,7 +55,13 @@ We are a data validation & biometrics company <img src="https://media.giphy.com/
    ● Over 40 APIs from USA, Mexico, Colombia, Peru, Ecuador, Venezuela, International.
    
    
- ### Built for developers by developers
+---
+
+### :fire: Verifik Stats :
+
+[![GitHub Streak](http://github-readme-streak-stats.herokuapp.com?user=migueltrevinom)](https://git.io/streak-stats)   
+   
+### Built for developers by developers
 
 
 ```javascript
