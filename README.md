@@ -4,6 +4,9 @@
   
   
   <div id="badges">
+    <a href="https://verifik.co">
+      <img src="https://img.shields.io/badge/Website-yellow?style=for-the-badge&logo=app&logoColor=white" alt="Website Badge"/>
+    </a>
     <a href="https://www.linkedin.com/company/verifik-co/">
       <img src="https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Badge"/>
     </a>
@@ -103,6 +106,36 @@ axios.request(options).then(function (response) {
     "message": "Certified by Verifik.co"
   }
 }
+```
+
+
+```javascript
+const verifik = require('./index')('your_token_here');
+
+verifik.colombia.getID('CC', '123456789').then((response) => {
+    console.log({
+        response
+    });
+}, (error) => {
+    console.log({
+        error,
+        response: error.response?.data,
+    });
+})
+
+verifik.requestEndpoint('co/cedula', {
+    documentType: 'CC',
+    documentNumber: '123456789',
+}).then((endpointData) => {
+    console.log({
+        endpointData,
+    });
+}, (error) => {
+    console.log({
+        error,
+        response: error.response?.data,
+    });
+})
 ```
 
 
