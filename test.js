@@ -1,26 +1,85 @@
-const verifik = require('./index')('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJZCI6IjYxM2E4NWNlODIyY2NhY2E4ZTQwMWFmMCIsImRvY3VtZW50VHlwZSI6IkNDIiwiZG9jdW1lbnROdW1iZXIiOiIxMjM0NTY3ODkiLCJ2IjoxLCJyb2xlIjoiY2xpZW50Iiwic3Vic2NyaXB0aW9uUGxhbiI6IjYxM2E4NWNlYmU2M2FmY2M2ZjUxYmQ1NyIsIkpXVFBocmFzZSI6Ik0xMTIiLCJleHBpcmVzQXQiOiIyMDIzLTAyLTEyIDA0OjExOjA2IiwiaWF0IjoxNjczNTgzMDY2fQ.EJgLMFX8TW5mU39eUNZqTNXaIrSo_HbT3loGkyYx9Lo');
+const verifik = require('./index')('tokenHERE');
 
-verifik.colombia.getID('CC', '123456789').then((response) => {
+
+// get a colombian ID
+// verifik.colombia.getID('CC', '123456789').then((response) => {
+//     console.log({
+//         colombia: response
+//     });
+// }, (error) => {
+//     console.log({
+//         error,
+//         response: error.response?.data,
+//     });
+// })
+
+
+// // get a venezuelan ID
+// verifik.venezuela.getID('CCVE', '1648126').then((response) => {
+//     console.log({
+//         venezuela: response
+//     });
+// }, (error) => {
+//     console.log({
+//         error,
+//         response: error.response?.data,
+//     });
+// })
+
+// // get a panamanian ID
+// verifik.panama.getID('CCPA', '1648126').then((response) => {
+//     console.log({
+//         panama: response
+//     });
+// }, (error) => {
+//     console.log({
+//         response: error.response?.data,
+//     });
+// })
+
+// // get a panamanian ID
+// verifik.peru.getID('DNI', '71272189').then((response) => {
+//     console.log({
+//         peru: response
+//     });
+// }, (error) => {
+//     console.log({
+//         error,
+//         response: error.response?.data,
+//     });
+// })
+
+// // chile document verification
+// verifik.chile.getID('RUT', '5056163').then((response) => {
+//     console.log({
+//         chile: response
+//     });
+// }, (error) => {
+//     console.log({
+//         chileError: error.response?.data,
+//     });
+// })
+
+// // Spain document verification
+// verifik.spain.getID('NIE', '70923784H', '17/05/2024').then((response) => {
+//     console.log({
+//         spain: response
+//     });
+// }, (error) => {
+//     console.log({
+//         error,
+//         spainError: error.response?.data,
+//     });
+// })
+
+// Brazil document verification
+verifik.brazil.getID('CPF', '07525638314', '22/01/2005').then((response) => {
     console.log({
-        response
+        brazilID: response,
     });
 }, (error) => {
-    console.log({
+    console.error({
         error,
-        response: error.response?.data,
+        brazilError: error.response?.data,
     });
-})
-
-verifik.requestEndpoint('co/cedula', {
-    documentType: 'CC',
-    documentNumber: '123456789',
-}).then((endpointData) => {
-    console.log({
-        endpointData,
-    });
-}, (error) => {
-    console.log({
-        error,
-        response: error.response?.data,
-    });
-})
+});

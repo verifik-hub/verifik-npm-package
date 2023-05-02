@@ -4,23 +4,27 @@ let _axios = null;
 
 let privateKey = null;
 
+const brazil = require('./brazil_features_list');
 const chile = require('./chile_features_list');
 const colombia = require('./colombia_features_list');
 const costaRica = require('./costa_rica_features_list');
 const mexico = require('./mexico_features_list');
 const panama = require('./panama_features_list');
 const peru = require('./peru_features_list');
+const spain = require('./spain_features_list');
 const venezuela = require('./venezuela_features_list');
 
 const features = {
     list: [],
     mapping: {
+        ...brazil.mapping,
         ...chile.mapping,
         ...colombia.mapping,
         ...costaRica.mapping,
         ...mexico.mapping,
         ...panama.mapping,
         ...peru.mapping,
+        ...spain.mapping,
         ...venezuela.mapping,
     },
 }
